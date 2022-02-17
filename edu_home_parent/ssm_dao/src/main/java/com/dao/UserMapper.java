@@ -17,5 +17,7 @@ public interface UserMapper {
      */
     public User login(User user);
 
+    
+    public void aaaaaaaaaaaaaaaaaaaaaaa();
 
 }
