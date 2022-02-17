@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.UserMapper">
+
+<!--    用户分页以及多条件组合查询-->
+    <select id="findAllUserByPage" parameterType="com.domain.UserVO" resultType="com.domain.User">
+       select * from user
+        <where>
+            <if test="true">
+                and is_del != 1
+            </if>
+            <if test="username != null and username != '' ">
+                and name = #{username}
+            </if>
+            <if test="startCreateTime != null and endCreateTime != null">
+                and create_time between #{startCreateTime} and #{endCreateTime}
+            </if>
+        </where>
+
+
+
+    </select>
+
+<!--    登陆：根据用户名查询用户-->
+    <select id="login" parameterType="com.domain.User" resultType="com.domain.User">
+        select * from user where phone = #{phone}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

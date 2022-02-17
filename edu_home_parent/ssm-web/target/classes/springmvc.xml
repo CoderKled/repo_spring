@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    1.SpringMVC的注解扫描-->
+    <context:component-scan base-package="com.controller"></context:component-scan>
+    <!--    2.MVC注解增强（转JSON）-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+<!--    3.视图解析器（因为前后端分离，只是给前端返回JSON串，没有视图跳转需求，所以暂时不配置）-->
+<!--    4.静态资源放行-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+<!--    5.为了实现文件上传功能需要配置文件解析器-->
+<!--    此处的ID必须是这个，不能乱取-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048576"></property>
+    </bean>
+</beans>

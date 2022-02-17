@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dao.MenuMapper">
+<!--    查询所有菜单（父子关系）-->
+    <resultMap id="MenuResult" type="com.domain.Menu">
+        <id column="id" property="id"></id>
+        <result column="href" property="href"></result>
+        <result column="icon" property="icon"></result>
+        <result column="name" property="name"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="description" property="description"></result>
+        <result column="orderNum" property="order_num"></result>
+        <result column="shown" property="shown"></result>
+        <result column="created_time" property="createdTime"></result>
+        <result column="updated_time" property="updatedTime"></result>
+        <result column="created_by" property="createdBy"></result>
+        <result column="updated_by" property="updatedBy"></result>
+
+
+        <collection property="subMenuList" ofType="com.domain.Menu"
+                    select="com.dao.MenuMapper.findSubMenuListByPid" column="id"></collection>
+    </resultMap>
+    <select id="findSubMenuListByPid" parameterType="int" resultMap="MenuResult">
+        <!--    这里是先把顶级菜单查出来，子级封装在自己的属性里-->
+        select * from menu where parent_id = #{id}
+    </select>
+</mapper>
